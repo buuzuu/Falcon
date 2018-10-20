@@ -14,4 +14,10 @@
         <item name="colorControlActivated">@color/startblue</item>
     </style>
 
+
+    <style name="AppTheme.NoActionBar.">
+        <item name="android:windowTranslucentNavigation">false</item>
+
+    </style>
+
 </resources>

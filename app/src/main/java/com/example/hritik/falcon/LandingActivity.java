@@ -30,10 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LandingActivity extends AppCompatActivity implements LocationListener {
+public class LandingActivity extends AppCompatActivity  {
 
     @BindView(R.id.map)
     ImageView map;
@@ -46,9 +48,9 @@ public class LandingActivity extends AppCompatActivity implements LocationListen
     @BindView(R.id.document)
     ImageView document;
     FirebaseDatabase database;
-    DatabaseReference users;
-    LocationManager locationManager;
-    
+    DatabaseReference users,alerts;
+
+    String usrName;
     FirebaseAuth auth;
 
 
@@ -61,6 +63,7 @@ public class LandingActivity extends AppCompatActivity implements LocationListen
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        alerts=database.getReference("Alerts");
         users = database.getReference("Users");
         ButterKnife.bind(this);
 
@@ -75,6 +78,8 @@ public class LandingActivity extends AppCompatActivity implements LocationListen
                 if (dataSnapshot.exists()) {
 
                     Common.currentUser = dataSnapshot.child(String.valueOf(builder.substring(0, builder.indexOf("@")))).getValue(User.class);
+                    usrName=Common.currentUser.getUserName();
+                    Log.d(TAG, "onDataChange:............"+usrName);
                     Log.d(TAG, "onDataChange: " + Common.currentUser.getEmail());
 
                 } else {
@@ -113,49 +118,55 @@ public class LandingActivity extends AppCompatActivity implements LocationListen
             }
         });
 
-        // get location
+        feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LandingActivity.this,FeedsActivity.class));
+            }
+        });
+        // get all feeds
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        alerts.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> iterable = dataSnapshot.getChildren().iterator();
+                Log.d(TAG, "onDataChange: Total users " + dataSnapshot.getChildrenCount());
+                while (iterable.hasNext()) {
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+                    DataSnapshot tempItem = iterable.next();
+                    Common.feedsCaption.add(tempItem.child("caption").getValue().toString());
+                    Common.feedsImages.add(tempItem.child("imageUrl").getValue().toString());
+                }
 
-        onLocationChanged(location);
+            }
 
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    public void onLocationChanged(Location location) {
+            }
+        });
 
-        Log.d(TAG, "onLocationChanged: First Heloo!");
-        double lat=location.getLatitude();
-        double lon=location.getLongitude();
-        Log.d(TAG, "onLocationChanged: Hello");
-        Log.d(TAG, "onLocationChanged: "+lat+"---"+lon);
+        // get personal alerts
+     //   String usrName=Common.currentUser.getUserName();
 
-    }
+      //  Log.d(TAG, "onCreate........................: "+usrName);
+        alerts.orderByChild("userId").equalTo(usrName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
+                    Common.personalFeedsCaption.add(dataSnapshot1.child("caption").getValue().toString());
+                    Common.personalFeedsImages.add(dataSnapshot1.child("imageUrl").getValue().toString());
+                }
+            }
 
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    @Override
-    public void onProviderEnabled(String s) {
+            }
+        });
 
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
 
     }
 
