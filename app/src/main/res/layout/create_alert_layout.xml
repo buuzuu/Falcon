@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="15dp"
+    android:layout_height="500dp">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/camera_image"
+            android:layout_width="match_parent"
+            android:src="@drawable/splashscreen"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_weight="5">
+        </ImageView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/click_image"
+            android:layout_height="wrap_content"
+            android:text="Click Image"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"/>
+
+        <EditText
+            android:hint="Enter Details"
+            android:id="@+id/camera_caption"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="60dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="Latitude"
+                android:id="@+id/latitude"
+                android:textStyle="bold"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="Longiude"
+                android:id="@+id/logitude"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/btn_upload"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:text="Upload"/>
+
+
+
+
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "133489565315",
+    "firebase_url": "https://falcon-1539838154235.firebaseio.com",
+    "project_id": "falcon-1539838154235",
+    "storage_bucket": "falcon-1539838154235.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133489565315:android:595a1af3f71ee338",
+        "android_client_info": {
+          "package_name": "com.example.hritik.falcon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133489565315-2csmsju8l0j38iqvummgb0c0acqp1562.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hritik.falcon",
+            "certificate_hash": "6e16cddd136d59f257d5b6b2698956335e663354"
+          }
+        },
+        {
+          "client_id": "133489565315-bvalt1c4pvr5ghiiv4qlo6g3c2qr4kv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZtXMVwFgw02uD-hptEQtTFsjID_Db-QM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133489565315-bvalt1c4pvr5ghiiv4qlo6g3c2qr4kv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
