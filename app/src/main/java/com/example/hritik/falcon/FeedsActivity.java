@@ -30,10 +30,5 @@ public class FeedsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Common.feedsImages.clear();
-        Common.feedsCaption.clear();
-    }
+
 }

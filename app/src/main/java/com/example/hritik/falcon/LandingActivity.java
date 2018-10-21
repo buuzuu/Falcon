@@ -300,39 +300,46 @@ public class LandingActivity extends AppCompatActivity  {
 
 
 
-        alerts.orderByChild("userId").equalTo(usrName).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> iterable = dataSnapshot.getChildren().iterator();
-
-                while (iterable.hasNext()) {
-                    DataSnapshot tempItem = iterable.next();
-                    Common.personalFeedsCaption.add(tempItem.child("caption").getValue().toString());
-                    Common.personalFeedsImages.add(tempItem.child("imageUrl").getValue().toString());
-
-
-
-
-                }
-                Toast.makeText(LandingActivity.this, "Got Alerts", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onDataChange: "+Common.personalFeedsCaption.size());
-                for (int i=0;i<Common.personalFeedsCaption.size();i++){
-                    Log.d(TAG, "onDataChanged: "+Common.personalFeedsCaption.get(i));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        alerts.orderByChild("userId").equalTo(usrName).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                Iterator<DataSnapshot> iterable = dataSnapshot.getChildren().iterator();
+//
+//                while (iterable.hasNext()) {
+//                    DataSnapshot tempItem = iterable.next();
+//                    Common.personalFeedsCaption.add(tempItem.child("caption").getValue().toString());
+//                    Common.personalFeedsImages.add(tempItem.child("imageUrl").getValue().toString());
+//
+//
+//
+//
+//                }
+//                Toast.makeText(LandingActivity.this, "Got Alerts", Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "onDataChange: "+Common.personalFeedsCaption.size());
+//                for (int i=0;i<Common.personalFeedsCaption.size();i++){
+//                    Log.d(TAG, "onDataChanged: "+Common.personalFeedsCaption.get(i));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Common.personalFeedsCaption.clear();
+        Common.personalFeedsImages.clear();
+        Common.feedsCaption.clear();
+        Common.feedsImages.clear();
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
