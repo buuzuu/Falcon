@@ -10,4 +10,39 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="definitionhead">
+
+<u>What are Wildfires?.</u>
+
+</string>
+
+
+    -
+    <string name="causehead">
+
+<u>Causes of Wildfires</u>
+
+</string>
+
+
+    <string name="effecthead"><u>Causes of Wildfire</u></string>
+
+
+    <string name="precautionhead">
+
+<u>Safety and Precautions</u>
+
+</string>
+
+    <string name="definition">• Wildfires are blazes that are uncontrolled and fueled by different types of weather, dry underbrush, and wind, which burn land by the acres and take over everything in their paths, in just a few minutes.\n • A wildfire also known as a wildland fire, or forest fire, is an uncontrolled fire often occurring in wildland areas, but which can also consume houses or agricultural resources </string>
+
+    <string name="causes">• Human beings are the number one cause of wildfires\n • Unattended Campfires\n • Burning Debris: It is pretty common to burn yard waste in many places. While it is legal to do so, it may cause fires at many places when things go out of hand. \n • Unattended campfires can put things out of control and can cause wildfires.\n • Mother Nature is responsible for other 10% of wildfires.\n • Lightening\n • Volcanic Eruption: Hot burning lava, from volcanic eruptions, also causes wildfires.\n </string>
+
+    <string name="effects">• Wildfires take away homes, wildlife, as well as vegetation\n • Animals lose their lives\n • Trees and plants are gone as well.\n • . Large amounts of smoke is released into the air which makes it difficult to breathe and also causes air pollution\n </string>
+
+    <string name="precautions">•Contact 911, your local fire department, or the park service if you notice an unattended or out-of-control fire.\n •Never leave a fire unattended.\n •When camping, take care when using and fueling lanterns, stoves, and heaters.\n •Make sure lighting and heating devices are cool before refueling.\n Avoid spilling flammable liquids and store fuel away from appliances.\n •Do not discard cigarettes, matches, and smoking materials from moving vehicles, or anywhere on park grounds. \n•Be certain to completely extinguish cigarettes before disposing of them.\n •Remove all flammables from yard when burning.</string>
+    <string name="title_activity_map">Map</string>
+    <string name="channel_name">Warning..!!!</string>
+    <string name="channel_description">This region is affected.</string>
+
 </resources>

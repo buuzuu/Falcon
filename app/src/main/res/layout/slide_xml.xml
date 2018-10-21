@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:visibility="invisible"
         android:id="@+id/txtTitle"
         android:textSize="30sp"
         android:textColor="#ffff"
@@ -27,6 +28,7 @@
         android:textColor="#fff"
         android:text="Description is here"
         android:textSize="17sp"
+        android:visibility="invisible"
         android:textAlignment="center"
         android:id="@+id/txtDescription"
         android:padding="16dp"/>

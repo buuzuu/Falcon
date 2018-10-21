@@ -51,6 +51,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class AlertActivity extends AppCompatActivity {
 
@@ -71,15 +72,18 @@ public class AlertActivity extends AppCompatActivity {
     private Uri filePath;
     private StorageReference storageReference;
     private RecyclerView recyclerView;
+    private  String lat;
+    private String longi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
-        database=FirebaseDatabase.getInstance();
-        recyclerView=findViewById(R.id.recyclerView);
-        alerts=database.getReference("Alerts");
+        database = FirebaseDatabase.getInstance();
+        recyclerView = findViewById(R.id.recyclerView2);
+        alerts = database.getReference("Alerts");
         addAlert = findViewById(R.id.addAlert);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("alertImages");
@@ -88,9 +92,16 @@ public class AlertActivity extends AppCompatActivity {
         toolbar.setTitle("Alert");
         toolbar.setTitleTextColor(Color.WHITE);
         fab.setImageResource(R.drawable.ic_add_black_24dp);
+
+
+
+
+
+
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(AlertActivity.this));
-        AlertAdapter alertAdapter=new AlertAdapter(this,Common.personalFeedsCaption,Common.personalFeedsImages);
+        AlertAdapter alertAdapter = new AlertAdapter(this, Common.personalFeedsCaption, Common.personalFeedsImages);
         recyclerView.setAdapter(alertAdapter);
         alertAdapter.notifyDataSetChanged();
 
@@ -104,12 +115,7 @@ public class AlertActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Common.personalFeedsImages.clear();
-        Common.personalFeedsCaption.clear();
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -128,18 +134,21 @@ public class AlertActivity extends AppCompatActivity {
 
     private void createAlertPopup() {
 
-        builder=new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-         view=LayoutInflater.from(AlertActivity.this).inflate(R.layout.create_alert_layout,null);
+        view = LayoutInflater.from(AlertActivity.this).inflate(R.layout.create_alert_layout, null);
         builder.setView(view);
         dialog = builder.create();
         dialog.show();
-        imageView=view.findViewById(R.id.camera_image);
-        Button click_image_button=view.findViewById(R.id.click_image);
-        camera_caption=view.findViewById(R.id.camera_caption);
-        TextView latitude=view.findViewById(R.id.latitude);
-        TextView lngitude=view.findViewById(R.id.logitude);
-        Button btn_upload=view.findViewById(R.id.btn_upload);
+        imageView = view.findViewById(R.id.camera_image);
+        Button click_image_button = view.findViewById(R.id.click_image);
+        camera_caption = view.findViewById(R.id.camera_caption);
+        TextView latitude = view.findViewById(R.id.latitude);
+        TextView lngitude = view.findViewById(R.id.logitude);
+        latitude.setText(String.valueOf(Common.lat));
+        lngitude.setText(String.valueOf(Common.longi));
+
+        Button btn_upload = view.findViewById(R.id.btn_upload);
 
         // clicking image
 
@@ -166,8 +175,6 @@ public class AlertActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void uploadFile() {
@@ -181,16 +188,16 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 val = 1 + Integer.parseInt(String.valueOf(dataSnapshot.getChildrenCount()));
-                Log.d(TAG, "onDataChange: "+val);
-                Log.d(TAG, "onDataChange: "+filePath);
-                storageReference.child(String.valueOf("alertNo-0"+val)).putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                Log.d(TAG, "onDataChange: " + val);
+                Log.d(TAG, "onDataChange: " + filePath);
+                storageReference.child(String.valueOf("alertNo-0" + val)).putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                         progressDialog.dismiss();
                         Toast.makeText(view.getContext(), "File Uploaded ", Toast.LENGTH_SHORT).show();
 
-                        storageReference.child(String.valueOf("alertNo-0"+val)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        storageReference.child(String.valueOf("alertNo-0" + val)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
 
@@ -201,11 +208,10 @@ public class AlertActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "onFailure: "+e.getMessage());
-                                Toast.makeText(AlertActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onFailure: " + e.getMessage());
+                                Toast.makeText(AlertActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
 
 
                     }
@@ -231,8 +237,12 @@ public class AlertActivity extends AppCompatActivity {
         alerts.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String email = Common.currentUser.getEmail();
+                final StringBuilder builder = new StringBuilder(email);
+                String userId = String.valueOf(builder.substring(0, builder.indexOf("@")));
+                Log.d(TAG, "onDataChange: Hritik" + userId);
 
-                Alert alert=new Alert(uri.toString(),Common.currentUser.getUserName(),"34.12","90.01",camera_caption.getText().toString());
+                Alert alert = new Alert(uri.toString(), userId, String.valueOf(Common.lat), String.valueOf(Common.longi), camera_caption.getText().toString());
                 alerts.child(String.valueOf("0" + val)).setValue(alert);
                 Toast.makeText(view.getContext(), "Alert Added", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();

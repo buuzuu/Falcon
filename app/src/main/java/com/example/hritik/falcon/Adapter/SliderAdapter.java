@@ -19,7 +19,7 @@ public class SliderAdapter extends PagerAdapter {
     Context context;
     LayoutInflater inflater;
 
-    public int[] imagearray={R.drawable.temp1,R.drawable.temp2,R.drawable.temp3,R.drawable.temp4};
+    public int[] imagearray={R.drawable.walk1,R.drawable.walk2,R.drawable.walk3,R.drawable.walk4};
     public String[] titleArray={"icon_1","icon_2","icon_3","icon_4"};
     public String[] descriptionArray={"forest fire icon_1"," forest fire icon_2 ","forest fire icon_3","forest fire icon_4"};
 

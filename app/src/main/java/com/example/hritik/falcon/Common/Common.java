@@ -8,7 +8,8 @@ import java.util.List;
 public class Common {
 
     public static User currentUser;
-
+    public static float lat;
+    public static float longi;
     public static List<String> feedsCaption=new ArrayList<>();
     public static List<String> feedsImages=new ArrayList<>();
     public static List<String> personalFeedsCaption=new ArrayList<>();

@@ -14,14 +14,16 @@ import android.widget.TextView;
 
 import com.example.hritik.falcon.Adapter.SliderAdapter;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class WalkThrough extends AppCompatActivity {
     private ViewPager viewpager;
     private LinearLayout linearLayout;
     private SliderAdapter slideradapter;
     private TextView[] dots;
-    private TextView privousbtn;
+    private CircleImageView privousbtn;
     private static final String TAG = "WalkThrough";
-    private TextView nextbtn;
+    private CircleImageView nextbtn;
     private int Currentpage=0;
 
     @Override
@@ -97,24 +99,21 @@ public class WalkThrough extends AppCompatActivity {
                 privousbtn.setEnabled(false);
                 privousbtn.setVisibility(View.INVISIBLE);
 
-                nextbtn.setText("Next");
-                privousbtn.setText("");
 
             }else if(i==dots.length-1){
                 nextbtn.setEnabled(true);
                 privousbtn.setEnabled(true);
                 privousbtn.setVisibility(View.VISIBLE);
 
-                nextbtn.setText("Finish");
-                privousbtn.setText("Back");
+                nextbtn.setImageResource(R.drawable.walkfinish);
+
 
             }else{
                 nextbtn.setEnabled(true);
                 privousbtn.setEnabled(true);
                 privousbtn.setVisibility(View.VISIBLE);
 
-                nextbtn.setText("Next");
-                privousbtn.setText("Back");
+
             }
 
         }
